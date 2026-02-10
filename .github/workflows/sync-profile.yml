@@ -5,9 +5,6 @@ on:
     types: [sync-profile]
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -15,13 +12,14 @@ jobs:
       - name: Checkout .github repo
         uses: actions/checkout@v4
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.ORG_PROFILE_SYNC_TOKEN }}
           fetch-depth: 0
 
       - name: Fetch README from monorepo
         run: |
           curl -sSL \
             -H "Accept: application/vnd.github.raw+json" \
+            -H "Authorization: Bearer ${{ secrets.ORG_PROFILE_SYNC_TOKEN }}" \
             "https://api.github.com/repos/momomemory/monorepo/contents/README.md" \
             -o profile/README.md
 

@@ -5,12 +5,18 @@ on:
     types: [sync-profile]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout .github repo
         uses: actions/checkout@v4
+        with:
+          token: ${{ github.token }}
+          fetch-depth: 0
 
       - name: Fetch README from monorepo
         run: |
@@ -26,4 +32,4 @@ jobs:
           git add profile/README.md
           git diff --cached --quiet && echo "No changes" && exit 0
           git commit -m "docs: sync profile README from monorepo"
-          git push
+          git push origin HEAD:main

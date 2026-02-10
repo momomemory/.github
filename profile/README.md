@@ -11,6 +11,7 @@ Give your agents a brain that actually remembers.
 ## Key Features
 
 - **Zero-Config Vector DB**: Native LibSQL vector support — no external dependencies required.
+- **Embedded Web Console**: Bun + Preact frontend is baked into the Rust binary and served at `/`.
 - **Local AI Pipeline**: Built-in support for local embeddings (FastEmbed) and transcription (Whisper).
 - **Universal Ingestion**: Extract from URLs, PDFs, DOCX, Images (OCR), and Audio/Video out of the box.
 - **Contradiction Management**: Automatically detect and resolve conflicting memories over time.
@@ -26,6 +27,13 @@ The fastest way to get Momo running is via Docker:
 ```bash
 docker run -p 3000:3000 -v ./data:/data momomemory/momo
 ```
+
+Then open:
+
+- Web console: `http://localhost:3000/`
+- API docs: `http://localhost:3000/api/v1/docs`
+- MCP endpoint: `http://localhost:3000/mcp`
+- MCP guide: [`./momo/docs/mcp.md`](./momo/docs/mcp.md)
 
 ### Add a Memory
 ```bash
@@ -50,13 +58,20 @@ curl -X POST http://localhost:3000/api/v1/search \
 | **Rust** | `momo-sdk` | Coming Soon |
 | **Go** | `momo-go` | Coming Soon |
 
+## Plugins
+
+| Platform | Package | Description |
+|----------|---------|-------------|
+| **OpenCode** | [`@momomemory/opencode-momo`](https://github.com/momomemory/opencode-momo) | Persistent memory for coding agents — context injection, tool modes, event compaction |
+
 ## Repositories
 
 - **[momomemory/momo](https://github.com/momomemory/momo)**: Core server (Rust).
 - **[momomemory/sdk-typescript](https://github.com/momomemory/sdk-typescript)**: Official TypeScript/JavaScript SDK.
+- **[momomemory/opencode-momo](https://github.com/momomemory/opencode-momo)**: OpenCode plugin for persistent agent memory.
 
 ## Credits
 
 Inspired by [Supermemory](https://supermemory.ai). Named after Momo, Aang's loyal flying lemur companion.
 
-[MIT](LICENSE) © Momo Contributors
+[MIT](./momo/LICENSE) © Momo Contributors
